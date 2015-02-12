@@ -7,7 +7,7 @@ function preload() {
     game.load.spritesheet('invader', 'assets/dog.png', 37, 47);
     game.load.image('ship', 'assets/catt.png');
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
-    game.load.image('starfield', 'assets/yard.jpg');
+    game.load.image('starfield', 'assets/yards.jpg');
     game.load.image('background', 'assets/background2.png');
 
 }
@@ -139,22 +139,22 @@ function createAliens () {
 
     aliens.x = 50;
     aliens.y = 50;
-	range=750;
+	range=650;
 if(level==2)
-range = 650;
-else if(level==3)
 range = 550;
+else if(level==3)
+range = 450;
 else if(level==4)
-range =450;
+range =300;
 else if(level==5)
-range = 350;
+range = 250;
 
-
+if(first==true){
     //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
     var tween = game.add.tween(aliens).to( { x: range }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
     //  When the tween loops it calls descend
-	if(first==true){
+	
     tween.onLoop.add(descend, this);
 	}
 }
@@ -168,7 +168,6 @@ function alienOut(alien) {
 
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
- 
 
 }
 function setupInvader (invader) {
@@ -260,7 +259,7 @@ function collisionHandler (bullet, alien) {
 
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
-		first=false;
+		first=true;
 	
     }
 	   if (aliens.countLiving() == 0&&level<5)

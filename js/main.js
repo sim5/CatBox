@@ -9,6 +9,7 @@ function preload() {
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
     game.load.image('starfield', 'assets/yards.jpg');
     game.load.image('background', 'assets/background2.png');
+		game.load.audio('catdog', 'assets/catdog.mp3');
 
 }
 
@@ -40,7 +41,9 @@ var lvl=1;
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
+kart = game.add.audio('catdog');
+        kart.loop = true;
+        kart.play();
     //  The scrolling starfield background
     starfield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
 

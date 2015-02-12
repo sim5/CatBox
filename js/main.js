@@ -35,7 +35,7 @@ var dog;
 var level=1;
 var number=1;
 var range;
-var first=true;
+
 var lvl=1;
 
 function create() {
@@ -152,25 +152,25 @@ range =300;
 else if(level==5)
 range = 250;
 
-if(first==true){
+
     //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
     var tween = game.add.tween(aliens).to( { x: range }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
     //  When the tween loops it calls descend
 	
     tween.onLoop.add(descend, this);
-	}
+	
 }
 function alienOut(alien) {
 
  player.kill();
         enemyBullets.callAll('kill');
 
-        stateText.text=" GAME OVER \n Click to restart";
+        stateText.text=" GAME OVER \n Press F5 to restart";
         stateText.visible = true;
 
         //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
+       // game.input.onTap.addOnce(restart,this);
 
 }
 function setupInvader (invader) {
@@ -257,12 +257,12 @@ function collisionHandler (bullet, alien) {
 		
 
         enemyBullets.callAll('kill',this);
-        stateText.text = " You Won, \n Click to restart";
+        stateText.text = " You Won, \n Press F5 to restart";
         stateText.visible = true;
 
         //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
-		first=true;
+        //game.input.onTap.addOnce(restart,this);
+
 	
     }
 	   if (aliens.countLiving() == 0&&level<5)
@@ -307,12 +307,12 @@ function enemyHitsPlayer (player,bullet) {
         player.kill();
         enemyBullets.callAll('kill');
 
-        stateText.text=" GAME OVER \n Click to restart";
+        stateText.text=" GAME OVER \n Press F5 to restart";
         stateText.visible = true;
-		first=false;
+
 
         //the "click to restart" handler
-        game.input.onTap.addOnce(restart,this);
+        //game.input.onTap.addOnce(restart,this);
 
     }
 

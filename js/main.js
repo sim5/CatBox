@@ -7,7 +7,7 @@ function preload() {
     game.load.spritesheet('invader', 'assets/dog.png', 37, 47);
     game.load.image('ship', 'assets/catt.png');
     game.load.spritesheet('kaboom', 'assets/explode.png', 128, 128);
-    game.load.image('starfield', 'assets/starfield.png');
+    game.load.image('starfield', 'assets/yard.jpg');
     game.load.image('background', 'assets/background2.png');
 
 }
@@ -34,6 +34,8 @@ var dog;
 var level=1;
 var number=1;
 var range;
+var first=true;
+var lvl=1;
 
 function create() {
 
@@ -89,7 +91,7 @@ function create() {
     scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
 	
 	  levelString = 'Level : ';
-    levelText = game.add.text(350, 10, levelString + level, { font: '34px Arial', fill: '#fff' });
+    levelText = game.add.text(350, 10, levelString + lvl, { font: '34px Arial', fill: '#fff' });
 
     //  Lives
     lives = game.add.group();
@@ -135,22 +137,26 @@ function createAliens () {
         }
     }
 
-    aliens.x = 0;
+    aliens.x = 50;
     aliens.y = 50;
-	range=800;
+	range=750;
 if(level==2)
-range = 700;
+range = 650;
 else if(level==3)
-range = 600;
+range = 550;
 else if(level==4)
-range = 500;
+range =450;
 else if(level==5)
-range = 400;
+range = 350;
+
+
     //  All this does is basically start the invaders moving. Notice we're moving the Group they belong to, rather than the invaders directly.
     var tween = game.add.tween(aliens).to( { x: range }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 
     //  When the tween loops it calls descend
+	if(first==true){
     tween.onLoop.add(descend, this);
+	}
 }
 function alienOut(alien) {
 
@@ -254,15 +260,16 @@ function collisionHandler (bullet, alien) {
 
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
+		first=false;
 	
     }
 	   if (aliens.countLiving() == 0&&level<5)
     {
 	
         score += 1000;
-		
+		lvl++;
         scoreText.text = scoreString + score;
-		levelText.text = levelString + level;
+		levelText.text = levelString + lvl;
         enemyBullets.callAll('kill',this);
 	
         stateText.text = " Level "+level+" Cleared, \n Click to Advance";
@@ -300,6 +307,7 @@ function enemyHitsPlayer (player,bullet) {
 
         stateText.text=" GAME OVER \n Click to restart";
         stateText.visible = true;
+		first=false;
 
         //the "click to restart" handler
         game.input.onTap.addOnce(restart,this);
@@ -372,6 +380,7 @@ function restart () {
     //  A new level starts
  number =1;
  level =1;
+ lvl=1;
  score=0;
 
     //resets the life count
